@@ -1,10 +1,12 @@
 (function () {
     // Endpoint of the storybook-chat-bot backend. Override via window.DS_CHAT_ENDPOINT.
-var ENDPOINT = window.DS_CHAT_ENDPOINT || 'http://localhost:3000/chat';
+    var ENDPOINT = window.DS_CHAT_ENDPOINT || 'http://localhost:3000/chat';
+
     if (document.getElementById('ds-chat-bubble-btn')) {
         return; // already injected
     }
-var ICON_CHAT =
+
+    var ICON_CHAT =
         '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
         '<path d="M12 3C7.03 3 3 6.58 3 11c0 2.05.87 3.92 2.3 5.34-.1 1.1-.46 2.3-1.3 3.16 1.6 0 3.04-.5 4.16-1.3 1.16.45 2.45.7 3.84.7 4.97 0 9-3.58 9-8s-4.03-8-9-8z" fill="currentColor"/>' +
         '<circle cx="8.5" cy="11" r="1.2" fill="#9453ad"/>' +
@@ -44,7 +46,7 @@ var ICON_CHAT =
         var el = document.createElement('div');
         el.className = 'ds-chat-msg ' + role;
         
-if (role == 'bot') {
+        if (role === 'bot') {
             // Parse markdown code blocks and inline code
             el.innerHTML = parseMarkdown(text);
         } else {
@@ -105,7 +107,8 @@ if (role == 'bot') {
 
         try {
             var res = await fetch(ENDPOINT, {
-                method: 'POST',  headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text, sessionId: sessionId }),
             });
             var data = await res.json();
@@ -125,7 +128,8 @@ if (role == 'bot') {
 
     send.addEventListener('click', sendMessage);
     input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {sendMessage();
+        if (e.key === 'Enter') {
+            sendMessage();
         }
     });
 })();
